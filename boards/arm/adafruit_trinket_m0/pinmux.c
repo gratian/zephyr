@@ -69,6 +69,15 @@ static int board_pinmux_init(const struct device *dev)
 
 #if ATMEL_SAM0_DT_TCC_CHECK(0, atmel_sam0_tcc_pwm) && \
 	defined(CONFIG_PWM_SAM0_TCC)
+
+	/* Digital #4 PA06/TCC1/WO[0] */
+	pinmux_pin_set(muxa, 6, PINMUX_FUNC_E);
+	/* Digital #3 PA07/TCC1/WO[1] */
+	pinmux_pin_set(muxa, 7, PINMUX_FUNC_E);
+	/* Digital #0 PA08/TCC0/WO[0] */
+	pinmux_pin_set(muxa, 8, PINMUX_FUNC_E);
+	/* Digital #2 PA09/TCC0/WO[1] */
+	pinmux_pin_set(muxa, 9, PINMUX_FUNC_E);
 	/* LED0 on PA10/TCC0/WO[2] */
 	pinmux_pin_set(muxa, 10, PINMUX_FUNC_F);
 #endif

@@ -23,6 +23,10 @@
 	aliases {
 		led0 = &led0;
 		pwm-led0 = &pwm_led0;
+		pwm-io0 = &pwm_io0;
+		pwm-io1 = &pwm_io1;
+		pwm-io2 = &pwm_io2;
+		pwm-io3 = &pwm_io3;
 	};
 
 	leds {
@@ -39,6 +43,22 @@
 		pwm_led0: pwm_led_0 {
 			pwms = <&tcc0 2>;
 		};
+
+		pwm_io0: pwm_io_0 {
+			pwms = <&tcc0 0>;
+		};
+
+		pwm_io1: pwm_io_1 {
+			pwms = <&tcc0 1>;
+		};
+
+		pwm_io2: pwm_io_2 {
+			pwms = <&tcc1 0>;
+		};
+
+		pwm_io3: pwm_io_3 {
+			pwms = <&tcc1 1>;
+		};
 	};
 };
 
@@ -47,7 +67,7 @@
 };
 
 &sercom0 {
-	status = "okay";
+	status = "disabled";
 	compatible = "atmel,sam0-uart";
 	current-speed = <115200>;
 	rxpo = <3>;
@@ -55,7 +75,7 @@
 };
 
 &sercom2 {
-	status = "okay";
+	status = "disabled";
 	compatible = "atmel,sam0-uart";
 	current-speed = <115200>;
 	rxpo = <1>;
@@ -80,6 +100,15 @@
 };
 
 &tcc0 {
+	status = "okay";
+	compatible = "atmel,sam0-tcc-pwm";
+	/* Gives a maximum period of 1.4 s */
+	prescaler = <4>;
+
+	#pwm-cells = <1>;
+};
+
+&tcc1 {
 	status = "okay";
 	compatible = "atmel,sam0-tcc-pwm";
 	/* Gives a maximum period of 1.4 s */
