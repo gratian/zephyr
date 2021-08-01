@@ -67,6 +67,19 @@
 #define PWM3_FLAGS	0
 #endif
 
+/* LED #0 */
+#define PWM_LED0_NODE	DT_ALIAS(pwm_led0)
+
+#if DT_NODE_HAS_STATUS(PWM_LED0_NODE, okay)
+#define LED0_CTLR	DT_PWMS_CTLR(PWM_LED0_NODE)
+#define LED0_CHANNEL	DT_PWMS_CHANNEL(PWM_LED0_NODE)
+#define LED0_FLAGS	DT_PWMS_FLAGS(PWM_LED0_NODE)
+#else
+#error "Unsupported board: pwm_led0 devicetree alias is not defined"
+#define LED0_CTLR	DT_INVALID_NODE
+#define LED0_CHANNEL	0
+#define LED0_FLAGS	0
+#endif
 
 #define PWM_DAC_PERIOD	120
 
@@ -79,12 +92,14 @@ static int pwm_dac_out_ch0(uint8_t val);
 static int pwm_dac_out_ch1(uint8_t val);
 static int pwm_dac_out_ch2(uint8_t val);
 static int pwm_dac_out_ch3(uint8_t val);
+static int pwm_dac_out_led0(uint8_t val);
 
 static const struct pwm_dac_channel dac_ch[] = {
-	{.dev = DEVICE_DT_GET(PWM0_CTLR), .out = pwm_dac_out_ch0 },
-	{.dev = DEVICE_DT_GET(PWM1_CTLR), .out = pwm_dac_out_ch1 },
-	{.dev = DEVICE_DT_GET(PWM2_CTLR), .out = pwm_dac_out_ch2 },
-	{.dev = DEVICE_DT_GET(PWM3_CTLR), .out = pwm_dac_out_ch3 },
+	{.dev = DEVICE_DT_GET(PWM0_CTLR), .out = pwm_dac_out_ch0},
+	{.dev = DEVICE_DT_GET(PWM1_CTLR), .out = pwm_dac_out_ch1},
+	{.dev = DEVICE_DT_GET(PWM2_CTLR), .out = pwm_dac_out_ch2},
+	{.dev = DEVICE_DT_GET(PWM3_CTLR), .out = pwm_dac_out_ch3},
+	{.dev = DEVICE_DT_GET(LED0_CTLR), .out = pwm_dac_out_led0},
 };
 
 static int pwm_dac_out_ch0(uint8_t val)
@@ -121,6 +136,15 @@ static int pwm_dac_out_ch3(uint8_t val)
 
 	return pwm_pin_set_cycles(dac_ch[3].dev, PWM3_CHANNEL,
 				PWM_DAC_PERIOD, val, PWM3_FLAGS);
+}
+
+static int pwm_dac_out_led0(uint8_t val)
+{
+	if (val > PWM_DAC_PERIOD)
+		val = PWM_DAC_PERIOD;
+
+	return pwm_pin_set_cycles(dac_ch[4].dev, LED0_CHANNEL,
+				PWM_DAC_PERIOD, val, LED0_FLAGS);
 }
 
 int pwm_dac_out_ch(uint8_t ch, uint8_t val)
