@@ -1,0 +1,154 @@
+/ {
+	chosen {
+		zephyr,console = &cdc_acm_uart0;
+	};
+
+	outputs {
+		compatible = "gpio-leds";
+
+		pwr_5v: pwr_5v {
+			gpios = <&porta 2 0>;
+			label = "PWR_5V";
+		};
+
+		nixie1_c: gpio_e0_p0 {
+			gpios = <&gpio_e0 0 0>;
+			label = "NIXIE1_C";
+		};
+		nixie1_b: gpio_e0_p1 {
+			gpios = <&gpio_e0 1 0>;
+			label = "NIXIE1_B";
+		};
+		nixie1_d: gpio_e0_p2 {
+			gpios = <&gpio_e0 2 0>;
+			label = "NIXIE1_D";
+		};
+		nixie1_a: gpio_e0_p3 {
+			gpios = <&gpio_e0 3 0>;
+			label = "NIXIE1_A";
+		};
+
+		nixie2_c: gpio_e0_p4 {
+			gpios = <&gpio_e0 4 0>;
+			label = "NIXIE2_C";
+		};
+		nixie2_b: gpio_e0_p5 {
+			gpios = <&gpio_e0 5 0>;
+			label = "NIXIE2_B";
+		};
+		nixie2_d: gpio_e0_p6 {
+			gpios = <&gpio_e0 6 0>;
+			label = "NIXIE2_D";
+		};
+		nixie2_a: gpio_e0_p7 {
+			gpios = <&gpio_e0 7 0>;
+			label = "NIXIE2_A";
+		};
+
+		nixie3_c: gpio_e0_p8 {
+			gpios = <&gpio_e0 8 0>;
+			label = "NIXIE3_C";
+		};
+		nixie3_b: gpio_e0_p9 {
+			gpios = <&gpio_e0 9 0>;
+			label = "NIXIE3_B";
+		};
+		nixie3_d: gpio_e0_p10 {
+			gpios = <&gpio_e0 10 0>;
+			label = "NIXIE3_D";
+		};
+		nixie3_a: gpio_e0_p11 {
+			gpios = <&gpio_e0 11 0>;
+			label = "NIXIE3_A";
+		};
+
+
+		nixie4_c: gpio_e0_p12 {
+			gpios = <&gpio_e0 12 0>;
+			label = "NIXIE4_C";
+		};
+		nixie4_b: gpio_e0_p13 {
+			gpios = <&gpio_e0 13 0>;
+			label = "NIXIE4_B";
+		};
+		nixie4_d: gpio_e0_p14 {
+			gpios = <&gpio_e0 14 0>;
+			label = "NIXIE4_D";
+		};
+		nixie4_a: gpio_e0_p15 {
+			gpios = <&gpio_e0 15 0>;
+			label = "NIXIE4_A";
+		};
+
+		nixie5_c: gpio_e1_p0 {
+			gpios = <&gpio_e1 0 0>;
+			label = "NIXIE5_C";
+		};
+		nixie5_b: gpio_e1_p1 {
+			gpios = <&gpio_e1 1 0>;
+			label = "NIXIE5_B";
+		};
+		nixie5_d: gpio_e1_p2 {
+			gpios = <&gpio_e1 2 0>;
+			label = "NIXIE5_D";
+		};
+		nixie5_a: gpio_e1_p3 {
+			gpios = <&gpio_e1 3 0>;
+			label = "NIXIE5_A";
+		};
+
+		nixie6_c: gpio_e1_p4 {
+			gpios = <&gpio_e1 4 0>;
+			label = "NIXIE6_C";
+		};
+		nixie6_b: gpio_e1_p5 {
+			gpios = <&gpio_e1 5 0>;
+			label = "NIXIE6_B";
+		};
+		nixie6_d: gpio_e1_p6 {
+			gpios = <&gpio_e1 6 0>;
+			label = "NIXIE6_D";
+		};
+		nixie6_a: gpio_e1_p7 {
+			gpios = <&gpio_e1 7 0>;
+			label = "NIXIE6_A";
+		};
+
+	};
+};
+
+&zephyr_udc0 {
+	cdc_acm_uart0: cdc_acm_uart0 {
+		compatible = "zephyr,cdc-acm-uart";
+		label = "CDC_ACM_0";
+	};
+};
+
+&sercom0 {
+	clock-frequency = <10000000>;
+	cs-gpios = <&xiao_d 7 GPIO_ACTIVE_LOW>,
+		   <&xiao_d 6 GPIO_ACTIVE_LOW>;
+
+	gpio_e0: mcp23sxx@0 {
+		compatible = "microchip,mcp23sxx";
+		reg = <0>;
+		label = "GPIO_E0";
+		spi-max-frequency = <10000000>;
+		gpio-controller;
+		#gpio-cells = <2>;
+		ngpios = <16>;
+		status = "okay";
+	};
+
+	gpio_e1: mcp23sxx@1 {
+		compatible = "microchip,mcp23sxx";
+		reg = <1>;
+		label = "GPIO_E1";
+		spi-max-frequency = <10000000>;
+		gpio-controller;
+		#gpio-cells = <2>;
+		ngpios = <16>;
+		status = "okay";
+	};
+
+};
