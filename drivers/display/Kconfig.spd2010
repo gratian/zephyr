@@ -1,0 +1,11 @@
+# Copyright (c) 2025 Gratian Crisan
+# SPDX-License-Identifier: Apache-2.0
+
+menuconfig SPD2010
+	   bool "SPD2010 display driver"
+	   default y
+	   depends on DT_HAS_SOLOMON_SPD2010_ENABLED
+	   select SPI
+	   select SPI_EXTENDED_MODES
+	   help
+	     Enable driver for Solomon Systech SPD2010 (L-WEA2010)
