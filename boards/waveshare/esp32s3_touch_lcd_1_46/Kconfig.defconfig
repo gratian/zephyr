@@ -9,4 +9,13 @@ config KERNEL_MEM_POOL
 config PWM
 	default y if DISPLAY
 
+if LVGL
+
+# The SPD2010 latches the SETCOL window in 4 pixel units, so an unaligned
+# column start is snapped by the controller and shifts the flushed area.
+config LV_Z_AREA_X_ALIGNMENT_WIDTH
+	default 4
+
+endif # LVGL
+
 endif # BOARD_ESP32S3_TOUCH_LCD_1_46_ESP32S3_PROCPU
