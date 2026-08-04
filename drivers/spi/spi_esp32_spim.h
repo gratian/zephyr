@@ -52,6 +52,8 @@ struct spi_esp32_config {
 	int cs_setup;
 	int cs_hold;
 	bool line_idle_low;
+	bool q_pol_low;
+	bool d_pol_low;
 	spi_clock_source_t clock_source;
 };
 
