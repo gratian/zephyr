@@ -119,3 +119,13 @@ properties:
     type: boolean
     description: |
       Default MISO and MOSI pins GPIO level when idle. Defaults to high by default.
+
+  q-pol-low:
+    type: boolean
+    description: |
+      MISO line polarity. Defaults to high by default.
+
+  d-pol-low:
+    type: boolean
+    description: |
+      MOSI line polarity. Defaults to high by default.

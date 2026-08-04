@@ -944,13 +944,9 @@ static int IRAM_ATTR spi_esp32_configure(const struct device *dev,
 #ifndef CONFIG_SOC_SERIES_ESP32
 	spi_dev_t *hw = hal->hw;
 
-	if (cfg->line_idle_low) {
-		hw->ctrl.d_pol = 0;
-		hw->ctrl.q_pol = 0;
-	} else {
-		hw->ctrl.d_pol = 1;
-		hw->ctrl.q_pol = 1;
-	}
+	hw->ctrl.hold_pol = (cfg->line_idle_low) ? 0 : 1;
+	hw->ctrl.q_pol = (cfg->q_pol_low) ? 0 : 1;
+	hw->ctrl.d_pol = (cfg->d_pol_low) ? 0 : 1;
 #endif
 
 	/*
@@ -1174,6 +1170,8 @@ static DEVICE_API(spi, spi_api) = {
 		.cs_setup = DT_INST_PROP_OR(idx, cs_setup_time, 0), \
 		.cs_hold = DT_INST_PROP_OR(idx, cs_hold_time, 0), \
 		.line_idle_low = DT_INST_PROP(idx, line_idle_low), \
+		.q_pol_low = DT_INST_PROP(idx, q_pol_low), \
+		.d_pol_low = DT_INST_PROP(idx, d_pol_low), \
 		.clock_source = SPI_CLK_SRC_DEFAULT,	\
 	};	\
 		\
