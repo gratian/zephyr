@@ -1,0 +1,20 @@
+# Copyright (c) 2026 Gratian Crisan
+# SPDX-License-Identifier: Apache-2.0
+
+description: Solomon SPD2010 capacitive touch controller
+
+compatible: "solomon,spd2010-touch"
+
+include: [i2c-device.yaml, touchscreen-common.yaml]
+
+properties:
+  irq-gpios:
+    type: phandle-array
+    description: |
+      Interrupt GPIO used by the controller to indicate that data is ready.
+      Signal is active low.
+
+  rst-gpios:
+    type: phandle-array
+    description: |
+      Reset GPIO for the controller. Signal is active low.

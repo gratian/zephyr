@@ -18,4 +18,7 @@ config LV_Z_AREA_X_ALIGNMENT_WIDTH
 
 endif # LVGL
 
+config INPUT_SPD2010
+	default y
+
 endif # BOARD_ESP32S3_TOUCH_LCD_1_46_ESP32S3_PROCPU

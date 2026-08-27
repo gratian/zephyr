@@ -1,0 +1,44 @@
+# Copyright (c) 2026 Gratian Crisan
+# SPDX-License-Identifier: Apache-2.0
+
+menuconfig INPUT_SPD2010
+	bool "Solomon SPD2010 capacitive touch panel driver"
+	default y
+	depends on DT_HAS_SOLOMON_SPD2010_TOUCH_ENABLED
+	select I2C
+	select INPUT_TOUCH
+	help
+	  Enable driver for the Solomon SPD2010 capacitive touchscreen
+	  controller.
+
+if INPUT_SPD2010
+
+config INPUT_SPD2010_MAX_TOUCH_POINTS
+	int "Maximum number of touch points"
+	range 1 10
+	default 5
+	help
+	  Maximum number of touch points to report.
+
+config INPUT_SPD2010_INIT_DELAY_MS
+	int "Initialization delay"
+	depends on !INPUT_SPD2010_INTERRUPT
+	default 50
+	help
+	  Delay in milliseconds before starting polling mode.
+
+config INPUT_SPD2010_PERIOD_MS
+	int "Sample period"
+	depends on !INPUT_SPD2010_INTERRUPT
+	default 20
+	help
+	  Polling interval in milliseconds when interrupt mode is disabled.
+
+config INPUT_SPD2010_INTERRUPT
+	bool "Interrupt"
+	depends on GPIO
+	default y if $(dt_compat_any_has_prop,$(DT_COMPAT_SOLOMON_SPD2010_TOUCH),irq_gpios)
+	help
+	  Enable interrupt support (requires irq-gpios in devicetree).
+
+endif # INPUT_SPD2010

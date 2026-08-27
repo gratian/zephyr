@@ -48,25 +48,6 @@
 		};
 	};
 
-	outputs {
-		compatible = "gpio-leds";
-
-		tp_rst: tp_rst {
-			gpios = <&tca9554 0 GPIO_ACTIVE_LOW>;
-			label = "TP_RST";
-		};
-
-		lcd_rst: lcd_rst {
-			gpios = <&tca9554 1 GPIO_ACTIVE_LOW>;
-		};
-
-		sd_cs: sd_cs {
-			gpios = <&tca9554 2 GPIO_ACTIVE_LOW>;
-			label = "SD_CS";
-		};
-	};
-
-	/* PWM */
 	pwmleds {
 		compatible = "pwm-leds";
 
@@ -123,6 +104,13 @@
 		status = "okay";
 	};
 
+	spd2010_touch: spd2010-touch@53 {
+		compatible = "solomon,spd2010-touch";
+		reg = <0x53>;
+		irq-gpios = <&gpio0 4 GPIO_ACTIVE_LOW>;
+		rst-gpios = <&tca9554 0 GPIO_ACTIVE_LOW>;
+		status = "okay";
+	};
 };
 
 &uart0 {
