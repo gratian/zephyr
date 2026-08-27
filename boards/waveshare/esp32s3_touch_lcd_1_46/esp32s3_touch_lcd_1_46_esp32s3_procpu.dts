@@ -111,6 +111,18 @@
 		rst-gpios = <&tca9554 0 GPIO_ACTIVE_LOW>;
 		status = "okay";
 	};
+
+	qmi8658a: qmi8658a@6b {
+		compatible = "qst,qmi8658a";
+		reg = <0x6b>;
+		accel-fs = <4>;      /* 4 g */
+		gyro-fs = <512>;     /* 512 dps */
+		accel-odr = <896>;   /* ~896 Hz */
+		gyro-odr = <896>;
+		int-gpios = <&tca9554 4 GPIO_ACTIVE_LOW>;
+		int-pin = <1>;
+		status = "okay";
+	};
 };
 
 &uart0 {
