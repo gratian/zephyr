@@ -9,4 +9,7 @@ config KERNEL_MEM_POOL
 config PWM
 	default y if DISPLAY
 
+config INPUT_SPD2010
+	default y
+
 endif # BOARD_ESP32S3_TOUCH_LCD_1_46_ESP32S3_PROCPU
