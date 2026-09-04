@@ -18,7 +18,7 @@
 	compatible = "espressif,esp32s3";
 
 	aliases {
-		sw0 = &button0;
+		sw0 = &pwr_button;
 		i2c-0 = &i2c0;
 		uart-0 = &uart0;
 		watchdog0 = &wdt0;
@@ -39,12 +39,23 @@
 		zephyr,display = &spd2010_512x512;
 	};
 
-	buttons {
+	inputs {
 		compatible = "gpio-keys";
-		button0: button_0 {
-			gpios = <&gpio0 0 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>;
-			label = "BOOT Button";
+
+		pwr_button: button_0 {
+			gpios = <&gpio0 6 GPIO_ACTIVE_HIGH>;
+			label = "PWR Button";
 			zephyr,code = <INPUT_KEY_0>;
+			status = "okay";
+		};
+	};
+
+	outputs {
+		compatible = "gpio-leds";
+
+		pwr_control: gpio0_7 {
+			gpios = <&gpio0 7 GPIO_ACTIVE_HIGH>;
+			status = "okay";
 		};
 	};
 
