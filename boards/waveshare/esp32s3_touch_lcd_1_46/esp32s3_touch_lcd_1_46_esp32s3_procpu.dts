@@ -37,6 +37,7 @@
 		zephyr,ipc = &ipm0;
 		zephyr,ipc_shm = &shm0;
 		zephyr,display = &spd2010_512x512;
+		zephyr,rtc = &pcf85063a_rtc;
 	};
 
 	inputs {
